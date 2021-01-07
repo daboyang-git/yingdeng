@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper
+	namespace="com.springcloud.backstage.dao.DataRegisterMapper">
+	<select id="queryByPageAndCondition"
+		parameterType="DataRegisterCondition"
+		resultType="ForegroundUserJoinEnterpriseCertif">
+		select f.id foregroundUserId,
+		f.loginName,
+		f.loginPwd,
+		f.contactphone,
+		f.email,
+		e.id enterpriseCertifId,
+		e.creditcode,
+		e.licenseimg,
+		e.contactper,
+		e.contacttel,
+		e.address,
+		e.shortname,
+		e.instinature,
+		e.userid,
+		e.verifystate,
+		e.fullname,
+		e.verifyremarks,
+		e.committime
+		from foregroundUser f
+		join enterprisecertif e
+		on f.id = e.userid     
+		<where>
+		<if test="minTime != null">
+		and e.committime >= #{minTime}
+		</if>
+		<if test="maxTime != null">
+		and e.committime &lt;= #{maxTime}
+		</if>
+		<if test="loginName != null">
+		and f.loginname like '%${loginName}%'    
+		</if>
+		and e.verifystate = 2   
+		</where>
+		order by commitTime 
+	</select>
+	
+	<select id="queryByEnterpriseCertifId" resultType="ForegroundUserJoinEnterpriseCertif">
+	 select f.id foregroundUserId,
+		f.loginName,
+		f.loginPwd,
+		f.contactphone,
+		f.email,
+		e.id enterpriseCertifId,
+		e.creditcode,
+		e.licenseimg,
+		e.contactper,
+		e.contacttel,
+		e.address,
+		e.shortname,
+		e.instinature,
+		e.userid,
+		e.verifystate,
+		e.fullname,
+		e.verifyremarks,
+		e.committime
+		from foregroundUser f
+		join enterprisecertif e
+		on f.id = e.userid  where e.id = #{enterpriseCertifId}
+	</select>
+	
+	<update id="verifySuccess">
+	 update EnterpriseCertif set verifystate = 1 where id = #{enterpriseCertifId}
+	</update>
+	
+	<update id="commitVerifyFail">
+	 update EnterpriseCertif set verifystate = -1 ,verifyRemarks = #{verifyRemarks} where id = #{enterpriseCertifId}
+	</update>
+</mapper>

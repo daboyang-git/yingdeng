@@ -1,0 +1,326 @@
+﻿<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css"
+	href="/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css"
+	href="/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css"
+	href="/static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css"
+	href="/static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="/bootstrap.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<style type="text/css">
+.breadcrumb {
+	height: 50px;
+}
+</style>
+<title>资料登记</title>
+</head>
+<body>
+	<nav class="breadcrumb">
+		<i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>
+		资产登记管理 <span class="c-gray en">&gt;</span> 资产登记审核 <a
+			class="btn btn-success radius r"
+			style="line-height: 1.6em; margin-top: 3px"
+			href="javascript:location.replace(location.href);" title="刷新"><i
+			class="Hui-iconfont">&#xe68f;</i></a>
+	</nav>
+	<div class="page-container">
+		<div class="text-c">
+			<form id="assetListForm" action="/assetRegister/assetRegisterList" method="post">
+				资产代码：<input th:value="${assetRegisterCondition.assetCode}"
+					type="text" name="assetCode" id="" placeholder="资产代码"
+					style="width: 200px" class="input-text"> 资产临时代码：<input
+					th:value="${assetRegisterCondition.assetTempCode}" type="text"
+					name="assetTempCode" id="" placeholder="资产临时代码"
+					style="width: 200px" class="input-text"> 资产简称：<input
+					th:value="${assetRegisterCondition.assetAbbreviation}" type="text"
+					name="assetAbbreviation" id="" placeholder="资产简称"
+					style="width: 200px" class="input-text"> <br /> <br />
+				日期范围： <input
+					th:value="${#dates.format(assetRegisterCondition.minTime,'yyyy-MM-dd')}"
+					name="minTime" type="text" autocomplete="off"
+					onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })"
+					id="logmin" class="input-text Wdate" style="width: 180px;">
+				- <input
+					th:value="${#dates.format(assetRegisterCondition.maxTime,'yyyy-MM-dd')}"
+					name="maxTime" type="text" autocomplete="off"
+					onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'logmin\')}',maxDate:'%y-%M-{%d+1}' })"
+					id="logmax" class="input-text Wdate" style="width: 180px;">
+				<br /> <br /> 用户名：<input
+					th:value="${assetRegisterCondition.loginName}" type="text"
+					name="loginName" id="" placeholder="用户的登录用户名" style="width: 250px"
+					class="input-text"> 机构简称：<input
+					th:value="${assetRegisterCondition.shortName}" type="text"
+					name="shortName" id="" placeholder="机构简称" style="width: 250px"
+					class="input-text"> <input type="hidden" name="pageIndex"
+					value="1" id="pageIndex" />
+				<button name="" id="" class="btn btn-success" type="submit">
+					<i class="Hui-iconfont">&#xe665;</i> 搜索
+				</button>
+			</form>
+		</div>
+		<div class="cl pd-5 bg-1 bk-gray mt-20">
+			<span class="l">每页显示：<strong>10</strong> 条
+			</span> <span class="r">共有数据：<strong th:text="${pageInfoAFE.total}"></strong>
+				条
+			</span>
+		</div>
+		<div class="mt-20">
+			<table
+				class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
+				<thead>
+					<tr class="text-c">
+						<td colspan="12" style="font-weight: bold; font-size: 16px;">待审核列表</td>
+					</tr>
+					<tr class="text-c">
+						<td>ID</td>
+						<td>资产代码</td>
+						<td>资产临时代码</td>
+						<td>资产简称</td>
+						<td>流转标类型</td>
+						<td>资产类型</td>
+						<td>提交时间</td>
+						<td>登录用户名</td>
+						<td>统一社会信用代码</td>
+						<td>单位地址</td>
+						<td>机构简称</td>
+						<td>操作</td>
+					</tr>
+				</thead>
+				<tbody th:each="afe : ${pageInfoAFE.list}">
+					<tr class="text-c">
+						<td>[[${afe.assetId}]]</td>
+						<td>[[${afe.assetCode}]]</td>
+						<td>[[${afe.assetTempCode}]]</td>
+						<td>[[${afe.assetAbbreviation}]]</td>
+						<td th:if="${afe.transfer == 1}">债权</td>
+						<td th:if="${afe.transfer == 2}">债权收益权</td>
+						<td th:if="${afe.transfer == 3}">信托受益权</td>
+						<td th:if="${afe.transfer == 4}">资管计划收益权</td>
+						<td>[[${afe.assetType}]]</td>
+						<td>[[${#dates.format(afe.timeOfSubmissionOfRegistration,'yyyy-MM-dd')}]]</td>
+						<td>[[${afe.loginName}]]</td>
+						<td>[[${afe.creditCode}]]</td>
+						<td>[[${afe.address}]]</td>
+						<td>[[${afe.shortName}]]</td>
+						<td class="f-14 td-manage"><a style="text-decoration: none"
+							class="ml-5"
+							th:onClick="article_edit('资产登记审核','/assetRegister/assetRegisterAdd',[[${afe.assetId}]])"
+							href="javascript:;" title="审核"><span
+								style="font-size: 14px; color: #337AB7;">查看详情并审核</span><i
+								style="color: #337AB7;" class="Hui-iconfont">&#xe6df;</i></a></td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr class="text-c">
+						<td colspan="12">
+							<ul class="pagination m-b-5">
+								<li th:if="${pageInfoAFE.hasPreviousPage}"><a
+									href="javascript:void(0);" th:class="jump"
+									th:data="${pageInfoAFE.prePage}" aria-label="Previous"> <i
+										class="fa fa-angle-left"></i>&nbsp;上一页
+								</a></li>
+								<!-- 中间的页码 -->
+								<th:block th:each="nav : ${pageInfoAFE.navigatepageNums}">
+									<li th:class="${nav==pageInfoAFE.pageNum}?'active':'jump' "
+										th:data="${nav}"><a href="javascript:void(0);"
+										th:text="${nav}"></a></li>
+								</th:block>
+								<!-- 下一页  -->
+								<th:block th:if="${pageInfoAFE.hasNextPage}">
+									<li><a href="javascript:void(0);" th:class="jump"
+										th:data="${pageInfoAFE.nextPage}" aria-label="Next">
+											下一页&nbsp;<i class="fa fa-angle-right"></i>
+									</a></li>
+								</th:block>
+							</ul>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+	<!--_footer 作为公共模版分离出去-->
+	<script type="text/javascript" src="/lib/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript" src="/lib/layer/2.4/layer.js"></script>
+	<script type="text/javascript" src="/static/h-ui/js/H-ui.min.js"></script>
+	<script type="text/javascript"
+		src="/static/h-ui.admin/js/H-ui.admin.js"></script>
+	<!--/_footer 作为公共模版分离出去-->
+
+	<!--请在下方写此页面业务相关的脚本-->
+	<script type="text/javascript"
+		src="/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+	<!-- <script type="text/javascript" src="/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>  -->
+	<script type="text/javascript" src="/lib/laypage/1.2/laypage.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$(".jump").click(function() {
+				$("#pageIndex").val($(this).attr("data"));
+				//alert($("#pi").val());
+				//提交表单
+				$("#assetListForm").submit();
+			});
+		});
+		/*资讯-添加*/
+		function article_add(title, url, w, h) {
+			var index = layer.open({
+				type : 2,
+				title : title,
+				content : url
+			});
+			layer.full(index);
+		}
+		/*资讯-编辑*/
+		function article_edit(title, url, id, w, h) {
+			var index = layer.open({
+				type : 2,
+				title : title,
+				content : url + '?assetId=' + id
+			});
+			layer.full(index);
+		}
+		/*资讯-删除*/
+		function article_del(obj, id) {
+			layer.confirm('确认要删除吗？', function(index) {
+				$.ajax({
+					type : 'POST',
+					url : '',
+					dataType : 'json',
+					success : function(data) {
+						$(obj).parents("tr").remove();
+						layer.msg('已删除!', {
+							icon : 1,
+							time : 1000
+						});
+					},
+					error : function(data) {
+						console.log(data.msg);
+					},
+				});
+			});
+		}
+
+		/*资讯-审核*/
+		function article_shenhe(obj, id) {
+			layer
+					.confirm(
+							'审核文章？',
+							{
+								btn : [ '通过', '不通过', '取消' ],
+								shade : false,
+								closeBtn : 0
+							},
+							function() {
+								$(obj)
+										.parents("tr")
+										.find(".td-manage")
+										.prepend(
+												'<a class="c-primary" onClick="article_start(this,id)" href="javascript:;" title="申请上线">申请上线</a>');
+								$(obj)
+										.parents("tr")
+										.find(".td-status")
+										.html(
+												'<span class="label label-success radius">已发布</span>');
+								$(obj).remove();
+								layer.msg('已发布', {
+									icon : 6,
+									time : 1000
+								});
+							},
+							function() {
+								$(obj)
+										.parents("tr")
+										.find(".td-manage")
+										.prepend(
+												'<a class="c-primary" onClick="article_shenqing(this,id)" href="javascript:;" title="申请上线">申请上线</a>');
+								$(obj)
+										.parents("tr")
+										.find(".td-status")
+										.html(
+												'<span class="label label-danger radius">未通过</span>');
+								$(obj).remove();
+								layer.msg('未通过', {
+									icon : 5,
+									time : 1000
+								});
+							});
+		}
+		/*资讯-下架*/
+		function article_stop(obj, id) {
+			layer
+					.confirm(
+							'确认要下架吗？',
+							function(index) {
+								$(obj)
+										.parents("tr")
+										.find(".td-manage")
+										.prepend(
+												'<a style="text-decoration:none" onClick="article_start(this,id)" href="javascript:;" title="发布"><i class="Hui-iconfont">&#xe603;</i></a>');
+								$(obj)
+										.parents("tr")
+										.find(".td-status")
+										.html(
+												'<span class="label label-defaunt radius">已下架</span>');
+								$(obj).remove();
+								layer.msg('已下架!', {
+									icon : 5,
+									time : 1000
+								});
+							});
+		}
+
+		/*资讯-发布*/
+		function article_start(obj, id) {
+			layer
+					.confirm(
+							'确认要发布吗？',
+							function(index) {
+								$(obj)
+										.parents("tr")
+										.find(".td-manage")
+										.prepend(
+												'<a style="text-decoration:none" onClick="article_stop(this,id)" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a>');
+								$(obj)
+										.parents("tr")
+										.find(".td-status")
+										.html(
+												'<span class="label label-success radius">已发布</span>');
+								$(obj).remove();
+								layer.msg('已发布!', {
+									icon : 6,
+									time : 1000
+								});
+							});
+		}
+		/*资讯-申请上线*/
+		function article_shenqing(obj, id) {
+			$(obj).parents("tr").find(".td-status").html(
+					'<span class="label label-default radius">待审核</span>');
+			$(obj).parents("tr").find(".td-manage").html("");
+			layer.msg('已提交申请，耐心等待审核!', {
+				icon : 1,
+				time : 2000
+			});
+		}
+	</script>
+</body>
+</html>

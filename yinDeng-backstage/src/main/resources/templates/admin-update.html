@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css"
+	href="/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css"
+	href="/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css"
+	href="/static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css"
+	href="/static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>添加管理员 - 管理员管理 - H-ui.admin v3.1</title>
+<meta name="keywords"
+	content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
+<meta name="description"
+	content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+<style type="text/css">
+.remarks {
+	color: red;
+	font-weight: bold;
+}
+</style>
+</head>
+<body>
+	<article class="page-container">
+		<form action="/backgroundUser/updateBackgroundUser" method="post"
+			class="form form-horizontal" id="form-admin-add">
+			<input type="hidden" name="id" th:value="${queryById.id}" />
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span
+					class="c-red">*</span>管理员用户名：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text"
+						th:value="${queryById.username}" placeholder="请输入管理员用户名"
+						id="username" name="username"> <span class="remarks"
+						id="usernameNext"></span>
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span
+					class="c-red">*</span>初始密码：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="password" class="input-text" autocomplete="off"
+						value="" placeholder="密码" id="password" name="password"> <span
+						class="remarks" id="passwordNext"></span>
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span
+					class="c-red">*</span>确认密码：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="password" class="input-text" autocomplete="off"
+						placeholder="确认新密码" id="password2" name="password2"> <span
+						class="remarks" id="password2Next"></span>
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span
+					class="c-red">*</span>手机：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text"
+						th:value="${queryById.phoneNumber}" placeholder="请输入手机号码"
+						id="phoneNumber" name="phoneNumber"> <span class="remarks"
+						id="phoneNumberNext"></span>
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span
+					class="c-red">*</span>身份证号码：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text"
+						th:value="${queryById.IDCardNumber}" placeholder="请输入身份证号码"
+						id="IDCardNumber" name="IDCardNumber"> <span
+						class="remarks" id="IDCardNumberNext"></span>
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span
+					class="c-red">*</span>姓名：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" th:value="${queryById.name}"
+						placeholder="请输入姓名" id="name" name="name"> <span
+						class="remarks" id="nameNext"></span>
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span
+					class="c-red">*</span>职位：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" th:value="${queryById.job}"
+						placeholder="请输入职位" id="job" name="job"> <span
+						class="remarks" id="jobNext"></span>
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3">账号权限：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<span class="select-box" style="width: 150px;"> <select
+						name="userPowerCode" size="1" class="select">
+							<option th:value="${queryById.userPowerCode}"
+								th:if="${queryById.userPowerCode != null}"><span
+									th:each="accountPower : ${session.accountPowers}"> <span
+									th:if="${accountPower.userPowerCode == queryById.userPowerCode}">[[${accountPower.userPower}]]</span>
+								</span>
+							</option>
+							<span th:each="accountPower : ${session.accountPowers}"> <span
+								th:if="${accountPower.userPowerCode != queryById.userPowerCode}">
+									<option th:value="${accountPower.userPowerCode}">[[${accountPower.userPower}]]</option>
+							</span></span>
+					</select>
+					</span>
+				</div>
+			</div>
+			<div class="row cl">
+				<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+					<input class="btn btn-primary radius" type="submit"
+						value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				</div>
+			</div>
+		</form>
+	</article>
+
+	<!--_footer 作为公共模版分离出去-->
+	<script type="text/javascript" src="/lib/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript" src="/lib/layer/2.4/layer.js"></script>
+	<script type="text/javascript" src="/static/h-ui/js/H-ui.min.js"></script>
+	<script type="text/javascript"
+		src="/static/h-ui.admin/js/H-ui.admin.js"></script>
+	<!--/_footer 作为公共模版分离出去-->
+
+	<!--请在下方写此页面业务相关的脚本-->
+	<script type="text/javascript"
+		src="/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+	<script type="text/javascript"
+		src="/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+	<script type="text/javascript"
+		src="/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$('.skin-minimal input').iCheck({
+				checkboxClass : 'icheckbox-blue',
+				radioClass : 'iradio-blue',
+				increaseArea : '20%'
+			});
+
+			var usernameVerify = true;
+			var passwordVerify = false;
+			var passwordEquals = false;
+			var phoneNumberVerify = true;
+			var IDCardNumberVerify = true;
+			var nameVerify = true;
+			var jobVerify = true;
+
+			$("#username").blur(function() {
+				usernameVerify = false;
+				var username = $("#username").val();
+				var regexpUsername = /^[a-zA-Z0-9_-]{4,16}$/;
+				$("#usernameNext").text("");
+				if (!regexpUsername.test(username)) {
+					$("#usernameNext").text("用户名为4到16位（字母，数字，下划线，减号）!");
+					return;
+				} 
+				
+				$.ajax({
+					url:"/backgroundUser/verifyUsername",
+					data:"username="+username,
+					type:"get",
+					dataType : "json",
+					success:function(rs) {
+						if(rs.success) {
+							usernameVerify = true;
+							$("#usernameNext").text("");
+						} else {
+							$("#usernameNext").text("该用户名已被其他用户使用!");
+						}
+					},
+				});
+
+			});
+
+			$("#password").blur(function() {
+				passwordVerify = false;
+				var password = $("#password").val();
+				var regexpPassword = /^[a-zA-Z0-9_-]{4,16}$/;
+				$("#passwordNext").text("");
+				if (!regexpPassword.test(password)) {
+					$("#passwordNext").text("密码为4到16位（字母，数字，下划线，减号）!");
+				} else {
+					passwordVerify = true;
+				}
+			});
+
+			$("#password2").blur(function() {
+				passwordEquals = false;
+				var password = $("#password").val();
+				var password2 = $("#password2").val();
+				$("#password2Next").text("");
+				if (password != password2) {
+					$("#password2Next").text("两次密码不一致!");
+				} else {
+					passwordEquals = true;
+				}
+			});
+
+			$("#phoneNumber").blur(function() {
+				phoneNumberVerify = false;
+				var phoneNumber = $("#phoneNumber").val();
+				var regexpTelephone = /^1[34578]\d{9}$/;
+				$("#phoneNumberNext").text("");
+				if (!regexpTelephone.test(phoneNumber)) {
+					$("#phoneNumberNext").text("手机号码格式错误!");
+				} else {
+					phoneNumberVerify = true;
+				}
+			});
+
+			$("#IDCardNumber")
+					.blur(
+							function() {
+								IDCardNumberVerify = false;
+								var IDCardNumber = $("#IDCardNumber").val();
+								var regexpIDCardNumber = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/;
+								$("#IDCardNumberNext").text("");
+								if (!regexpIDCardNumber.test(IDCardNumber)) {
+									$("#IDCardNumberNext").text("身份证号码格式错误!");
+								} else {
+									IDCardNumberVerify = true;
+								}
+							});
+
+			$("#name").blur(function() {
+				nameVerify = false;
+				var name = $("#name").val();
+				var regexpName = /^[\u4e00-\u9fa5]{2,10}$/;
+				$("#nameNext").text("");
+				if (!regexpName.test(name)) {
+					$("#nameNext").text("请输入正确的姓名!");
+				} else {
+					nameVerify = true;
+				}
+			});
+
+			$("#job").blur(function() {
+				jobVerify = false;
+				var job = $("#job").val();
+				var regexpJob = /^.{1,15}$/;
+				$("#jobNext").text("");
+				if (!regexpJob.test(job)) {
+					$("#jobNext").text("职位信息格式错误!");
+				} else {
+					jobVerify = true;
+				}
+			});
+
+			$("#form-admin-add").submit(
+					function() {
+						if (usernameVerify && passwordVerify && passwordEquals
+								&& phoneNumberVerify && IDCardNumberVerify
+								&& nameVerify && jobVerify) {
+							return true;
+						}
+						alert("请输入正确的信息!");
+						return false;
+					});
+		});
+	</script>
+	<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

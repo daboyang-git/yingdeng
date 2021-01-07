@@ -1,0 +1,162 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.zl</groupId>
+	<artifactId>yinDeng-parent</artifactId>
+	<version>${parent-version}</version>
+	<packaging>pom</packaging>
+
+	<!-- 集中管理版本 -->
+	<properties>
+		<!-- 项目版本 -->
+		<parent-version>1.0.0</parent-version>
+		<!-- 编码类型 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- mybatis的版本 -->
+		<mybatis-version>1.3.4</mybatis-version>
+		<!-- oracle版本 -->
+		<oracle-version>12.1.0.2</oracle-version>
+		<!-- mybatis分页插件版本 -->
+		<pagehelper-version>1.2.10</pagehelper-version>
+		<!-- jdk版本号 -->
+		<source-version>1.8</source-version>
+		<!-- spring-boot-starter-log4j的版本号 -->
+		<spring-boot-starter-log4j-version>1.3.8.RELEASE</spring-boot-starter-log4j-version>
+		<!-- slf4j的版本 -->
+		<slf4j-api-version>1.7.25</slf4j-api-version>
+		<!-- springboot启动器的版本 -->
+		<spring-version>2.1.5.RELEASE</spring-version>
+		<!-- lombok版本管理 -->
+		<lombok-version>1.18.6</lombok-version>
+		<!-- thymeleaf版本管理 -->
+		<thymeleaf-version>2.1.5.RELEASE</thymeleaf-version>
+	</properties>
+
+	<!-- 依赖管理 -->
+	<dependencyManagement>
+		<dependencies>
+
+			<!-- springcloud依赖 -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>Greenwich.RELEASE</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!-- spring boot start -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter</artifactId>
+				<version>${spring-version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+				<exclusions>
+					<!-- 排除自带的logback依赖 -->
+					<exclusion>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-logging</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<!-- springboot-log4j -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-log4j</artifactId>
+				<version>${spring-boot-starter-log4j-version}</version>
+			</dependency>
+
+			<!-- slf4j依赖 -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j-api-version}</version>
+			</dependency>
+
+
+			<!-- jdbc连接池依赖 -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-jdbc</artifactId>
+				<version>${spring-version}</version>
+			</dependency>
+
+			<!-- mybatis的依赖 -->
+			<dependency>
+				<groupId>org.mybatis.spring.boot</groupId>
+				<artifactId>mybatis-spring-boot-starter</artifactId>
+				<version>${mybatis-version}</version>
+			</dependency>
+
+			<!-- Oracle依赖 -->
+			<dependency>
+				<groupId>com.oracle</groupId>
+				<artifactId>ojdbc7</artifactId>
+				<version>${oracle-version}</version>
+			</dependency>
+
+			<!-- 分页插件依赖 -->
+			<dependency>
+				<groupId>com.github.pagehelper</groupId>
+				<artifactId>pagehelper-spring-boot-starter</artifactId>
+				<version>${pagehelper-version}</version>
+			</dependency>
+
+
+			<!-- 测试依赖 -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-test</artifactId>
+				<version>${spring-version}</version>
+				<scope>test</scope>
+			</dependency>
+
+			<!-- lombok 依赖 -->
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${lombok-version}</version>
+			</dependency>
+
+
+			<!-- redis -->
+			<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-data-redis</artifactId> 
+				</dependency> -->
+
+			<!-- thymeleaf模板引擎依赖 -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-thymeleaf</artifactId>
+				<version>${thymeleaf-version}</version>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+	<!-- springboot编译器 -->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${source-version}</source>
+					<target>${source-version}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<modules>
+		<module>yinDeng-eureka</module>
+		<module>yinDeng-users</module>
+		<module>yinDeng-common</module>
+		<module>yinDeng-register</module>
+		<module>yinDeng-circulation</module>
+		<module>yinDeng-backstage</module>
+	</modules>
+</project>

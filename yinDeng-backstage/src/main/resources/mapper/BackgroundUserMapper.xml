@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper
+	namespace="com.springcloud.backstage.dao.BackgroundUserMapper">
+	<select id="queryByUsernameAndPassword"
+		resultType="BackgroundUser">
+		select * from backgroundUser where username = #{username}
+		and password = #{password}
+	</select>
+
+	<update id="loginSuccessUpdateBgU">
+		update backgroundUser set loginCount =
+		#{loginCount},lastLoginTime = #{lastLoginTime},lastLoginIp =
+		#{lastLoginIp},verssion = verssion + 1,updateTime = sysdate where id =
+		#{id}
+	</update>
+
+	<select id="queryByPageCondition"
+		parameterType="BackgroundUserPageCondition"
+		resultType="BackgroundUser">
+		select
+		id,username,password,phoneNumber,IDCardNumber,name,job,userPowerCode,createTime,
+		updateTime,verssion,loginCount,lastLoginTime,lastLoginIp,state from
+		(select b.*,rownum r from
+		(select * from backgroundUser
+		<where>
+			and  state != -1
+			<if test="userPowerCode != null">
+				and userPowerCode = #{userPowerCode}
+			</if>
+			<if test="minTime != null">
+				and createTime >= #{minTime}
+			</if>
+			<if test="maxTime != null">
+				and createTime &lt;= #{maxTime}
+			</if>
+			<if test="name != null and name != ''">
+				and name like '%${name}%'
+			</if>
+		</where>
+		) b) where r >= #{minRownum} and r &lt;= #{maxRownum}
+
+	</select>
+
+
+	<select id="queryCountByPageCondition"
+		parameterType="BackgroundUserPageCondition" resultType="Integer">
+		select count(1)
+		from backgroundUser
+		<where>
+			and  state != -1  
+			<if test="userPowerCode != null">
+				and userPowerCode = #{userPowerCode}
+			</if>
+			<if test="minTime != null">
+				and createTime >= #{minTime}
+			</if>
+			<if test="maxTime != null">
+				and createTime &lt;= #{maxTime}
+			</if>
+			<if test="name != null and name != ''">
+				and name like '%${name}%'
+			</if>
+		</where>
+	</select>
+
+	<select id="queryById" resultType="BackgroundUser">
+		select * from backgroundUser
+		where id = #{id}
+	</select>
+
+	<update id="updateBackgroundUser" parameterType="BackgroundUser">
+		update
+		backgroundUser
+		set username = #{username},
+		password = #{password},
+		phoneNumber = #{phoneNumber},
+		IDCardNumber = #{IDCardNumber},
+		name =
+		#{name},
+		job = #{job},
+		userPowerCode = #{userPowerCode},
+		updateTime =
+		sysdate,
+		verssion = verssion + 1
+		where id = #{id}
+	</update>
+
+	<insert id="addBackgroundUser" parameterType="BackgroundUser">
+		insert into
+		backgroundUser
+		values
+		(seq_backgroundUser.nextval,
+		#{username},
+		#{password},
+		#{phoneNumber},
+		#{IDCardNumber},
+		#{name},
+		#{job},
+		#{userPowerCode},
+		sysdate,
+		null,
+		1,
+		0,
+		null,
+		null,
+		0)
+	</insert>
+
+	<select id="verifyUsername" resultType="BackgroundUser">
+		select * from
+		backgroundUser where
+		username = #{username} and
+		username != #{lastUsername}
+
+	</select>
+
+	<select id="addVerifyUsername" resultType="BackgroundUser">
+		select * from backgroundUser where
+		username = #{username}
+	</select>
+	
+	<update id="delBackgroundUser">
+		update backgroundUser set 
+		state = -1,verssion = verssion + 1 where id = #{id} 
+	</update>
+	
+	<update id="lockBackgroundUser">
+		update backgroundUser set 
+		state = 1,verssion = verssion + 1 where id = #{id} 
+	</update>
+	
+	<update id="unlockBackgroundUser">
+		update backgroundUser set 
+		state = 0,verssion = verssion + 1 where id = #{id} 
+	</update>
+</mapper>

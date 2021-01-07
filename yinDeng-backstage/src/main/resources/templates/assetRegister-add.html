@@ -1,0 +1,663 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="Bookmark" href="/favicon.ico">
+<link rel="Shortcut Icon" href="/favicon.ico" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css"
+	href="/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css"
+	href="/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css"
+	href="/static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css"
+	href="/static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<!--/meta 作为公共模版分离出去-->
+
+<title>新增文章 - 资讯管理 - H-ui.admin v3.1</title>
+<meta name="keywords"
+	content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
+<meta name="description"
+	content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+</head>
+<body>
+	<article class="page-container">
+		<form class="form form-horizontal" id="form-article-add">
+			<div class="row cl">
+				<label style="font-weight: bold; font-size: 26px;color:red;"
+					class="form-label col-xs-4 col-sm-5">用户信息&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+				<div style="font-size: 22px;" class="formControls col-xs-8 col-sm-6">
+
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">用户id：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${foregroundUser.id}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">登录用户名：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${foregroundUser.loginName}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">联系手机：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${foregroundUser.contactPhone}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">电子邮箱：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${foregroundUser.email}"></div>
+			</div>
+			<br /> <br />
+
+
+
+
+
+
+
+			<div class="row cl">
+				<label style="font-weight: bold; font-size: 26px;color:red;"
+					class="form-label col-xs-4 col-sm-5">企业认证信息&nbsp;&nbsp;&nbsp;</label>
+				<div style="font-size: 22px;" class="formControls col-xs-8 col-sm-6">
+
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">企业认证id：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${enterpriseCertif.id}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">统一社会信用代码：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${enterpriseCertif.creditCode}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">三证合一营业执照：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${enterpriseCertif.licenseImg}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">联系人：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${enterpriseCertif.contactPer}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">办公电话：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${enterpriseCertif.contactTel}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">单位地址：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${enterpriseCertif.address}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">机构简称：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${enterpriseCertif.shortName}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">机构性质：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${enterpriseCertif.instiNature}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">机构全称：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${enterpriseCertif.fullName}"></div>
+			</div>
+			<br /> <br />
+
+
+
+
+
+
+
+			<div class="row cl">
+				<label style="font-weight: bold; font-size: 26px;color:red;"
+					class="form-label col-xs-4 col-sm-5">资产信息&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+				<div style="font-size: 22px;" class="formControls col-xs-8 col-sm-6"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">资产id：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${asset.id}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">资产代码：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${asset.assetCode}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">资产临时代码：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${asset.assetTempCode}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">资产全称：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${asset.assetName}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">资产简称：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${asset.assetAbbreviation}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">流转标类型：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.transfer == 1}">债权</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.transfer == 2}">信托受益权</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.transfer == 3}">债权收益权</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.transfer == 4}">资管计划收益权</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">原始贷款合同编号：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${asset.originalLoanContractNumber}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">原始贷款借据编号：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${asset.originalLoanLendingNumber}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">资产类型：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${asset.assetType}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">贷款用途：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${asset.loanPurpose}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">贷款五级分类：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.loanClassification == 1}">正常</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.loanClassification == 2}">关注</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.loanClassification == 3}">次级</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.loanClassification == 4}">可疑</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.loanClassification == 5}">损失</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">币种：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.currency == 1}">CNY-人民币</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.currency == 2}">USD-美元</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.currency == 3}">HKD-港元</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.currency == 4}">EUR-欧元</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.currency == 5}">GBP-英镑</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.currency == 6}">JPY-日元</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">贷款余额(元)：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${asset.loanBalance}+'元'"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">贷款余额大写：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${asset.loanBalanceUpper}+'元'"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">利率浮动方式：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.interestRateFloatingMode} == 1">固定利率</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.interestRateFloatingMode} == 2">浮动利率(浮动点)</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.interestRateFloatingMode} == 3">浮动利率(浮动比率)</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">贷款利率：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${asset.loanInterestRate}+'%'"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">利率基准：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.interestRateBenchmark == 1}">六个月以内</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.interestRateBenchmark == 2}">六个月至一年</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.interestRateBenchmark == 3}">一至三年</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.interestRateBenchmark == 4}">三至五年</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.interestRateBenchmark == 5}">五年以上</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">利率浮动点：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${asset.interestRateFloatingPoint}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">浮动利率：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${asset.floatingRateOfInterestRate}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">当前执行利率：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${asset.currentExecutionRate}+'%'"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">贷款起息日：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${#dates.format(asset.startingDateOfLoan,'yyyy-MM-dd')}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">贷款到期日：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${#dates.format(asset.maturityDateOfLoan,'yyyy-MM-dd')}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">贷款期限：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.termUnitOfLoan == 1}"
+					th:text="${asset.loanPeriod}+'年'"></div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.termUnitOfLoan == 2}"
+					th:text="${asset.loanPeriod}+'月'"></div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.termUnitOfLoan == 3}"
+					th:text="${asset.loanPeriod}+'日'"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">贷款期限天数：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${asset.daysOfLoanMaturity}+'天'"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">贷款付息方式：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${asset.interestPaymentOnLoans}+' 个月/次'"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">担保方式：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.guaranteeMode == 1}">无担保</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.guaranteeMode == 2}">保证</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.guaranteeMode == 3}">抵押</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.guaranteeMode == 4}">质押</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${asset.guaranteeMode == 5}">其他</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">增信情况：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${asset.creditEnhancement}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">提交登记时间：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${#dates.format(asset.timeOfSubmissionOfRegistration,'yyyy-MM-dd')}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">登记金额：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${asset.regisAmount}+'元'"></div>
+			</div>
+			<br /> <br />
+
+
+
+
+
+
+
+			<div class="row cl">
+				<label style="font-weight: bold; font-size: 26px;color:red;"
+					class="form-label col-xs-4 col-sm-5">借款人信息&nbsp;&nbsp;&nbsp;&nbsp;</label>
+				<div style="font-size: 22px;" class="formControls col-xs-8 col-sm-6"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">借款人id：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${borrower.id}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">组织机构代码：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${borrower.organizationalCode}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">借款人全称：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${borrower.borrowerName}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">借款人简称：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${borrower.borrowerAbbreviation}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">是否法人机构：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${borrower.isCorporation} == 0">是</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${borrower.isCorporation} == 1">否</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">机构注册地址：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${borrower.RegisAddress}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">借款人所在地区：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${borrower.borrowerArea}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">借款人所属行业：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${borrower.industry}+'  (按照国家统计局发布的GB/T 4754-2011《国民经济行业分类》)'"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">企业类型：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${borrower.enterpriseType == 1}">大型企业</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${borrower.enterpriseType == 2}">中型企业</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${borrower.enterpriseType == 3}">小型企业</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${borrower.enterpriseType == 4}">微型企业</div>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:if="${borrower.enterpriseType == 5}">个人</div>
+			</div>
+			<br /> <br />
+
+
+
+			<div class="row cl">
+				<label style="font-weight: bold; font-size: 26px;color:red;"
+					class="form-label col-xs-4 col-sm-5">贷款发放机构信息</label>
+				<div style="font-size: 22px;" class="formControls col-xs-8 col-sm-6">
+
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">贷款发放机构信息id：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${loanIssuingAgency.id}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">贷款发放机构全称：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${loanIssuingAgency.name}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">贷款发放机构简称：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${loanIssuingAgency.abbreviation}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">贷款发放机构地区：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${loanIssuingAgency.area}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">贷款发放机构所属总行组织机构代码：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${loanIssuingAgency.headOfficeOrganizationCode}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">资产初始持有人账号：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${loanIssuingAgency.initialAssetHolderAccount}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">资产初始持有人全称：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${loanIssuingAgency.initialAssetHolderName}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">资产初始持有人简称：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${loanIssuingAgency.initialAssetHolderAbbreviation}"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-4">贷款管理人简称：</label>
+				<div style="font-size: 18px;" class="formControls col-xs-8 col-sm-7"
+					th:text="${loanIssuingAgency.loanAdministratorAbbreviation}"></div>
+			</div>
+			<br /> <br />
+
+
+
+
+			<div th:if="${trustContract != null}">
+				<div class="row cl">
+					<label style="font-weight: bold; font-size: 26px;color:red;"
+						class="form-label col-xs-4 col-sm-5">信托合同基本信息</label>
+					<div style="font-size: 22px;"
+						class="formControls col-xs-8 col-sm-6"></div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-4">信托合同基本信息id：</label>
+					<div style="font-size: 18px;"
+						class="formControls col-xs-8 col-sm-7"
+						th:text="${trustContract.id}"></div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-4">信托合同名称：</label>
+					<div style="font-size: 18px;"
+						class="formControls col-xs-8 col-sm-7"
+						th:text="${trustContract.trustContractName}"></div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-4">信托设立日：</label>
+					<div style="font-size: 18px;"
+						class="formControls col-xs-8 col-sm-7"
+						th:text="${#dates.format(trustContract.trustEstablishmentDate,'yyyy-MM-dd')}"></div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-4">信托终止日：</label>
+					<div style="font-size: 18px;"
+						class="formControls col-xs-8 col-sm-7"
+						th:text="${#dates.format(trustContract.trustTerminationDate,'yyyy-MM-dd')}"></div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-4">信托受益权本金(元)：</label>
+					<div style="font-size: 18px;"
+						class="formControls col-xs-8 col-sm-7"
+						th:text="${trustContract.princOfTrustBeneRight}+'元'"></div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-4">信托收益权本金大写(元)：</label>
+					<div style="font-size: 18px;"
+						class="formControls col-xs-8 col-sm-7"
+						th:text="${trustContract.princOfTrustBeneRightUpper}+'元'"></div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-4">信托预期收益率：</label>
+					<div style="font-size: 18px;"
+						class="formControls col-xs-8 col-sm-7"
+						th:text="${trustContract.expectedReturnRateOfTrust}+'%'"></div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-4">委托人：</label>
+					<div style="font-size: 18px;"
+						class="formControls col-xs-8 col-sm-7"
+						th:text="${trustContract.trustContractClient}"></div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-4">受托人：</label>
+					<div style="font-size: 18px;"
+						class="formControls col-xs-8 col-sm-7"
+						th:text="${trustContract.trustee}"></div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-4">受益人：</label>
+					<div style="font-size: 18px;"
+						class="formControls col-xs-8 col-sm-7"
+						th:text="${trustContract.trustContractBeneficiary}"></div>
+				</div>
+				<br /> <br />
+			</div>
+
+
+
+			<div th:if="${assetManagementContract != null}">
+				<div class="row cl">
+					<label style="font-weight: bold; font-size: 26px;color:red;"
+						class="form-label col-xs-4 col-sm-5">资产管理合同基本信息</label>
+					<div style="font-size: 22px;"
+						class="formControls col-xs-8 col-sm-6"></div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-4">资产管理合同基本信息id：</label>
+					<div style="font-size: 18px;"
+						class="formControls col-xs-8 col-sm-7"
+						th:text="${assetManagementContract.id}"></div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-4">资产管理合同名称：</label>
+					<div style="font-size: 18px;"
+						class="formControls col-xs-8 col-sm-7"
+						th:text="${assetManagementContract.assetManagementContractName}"></div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-4">资管计划起息日：</label>
+					<div style="font-size: 18px;"
+						class="formControls col-xs-8 col-sm-7"
+						th:text="${#dates.format(assetManagementContract.startingDate,'yyyy-MM-dd')}"></div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-4">资管计划到期日：</label>
+					<div style="font-size: 18px;"
+						class="formControls col-xs-8 col-sm-7"
+						th:text="${#dates.format(assetManagementContract.maturityDate,'yyyy-MM-dd')}"></div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-4">资管计划本金(元)：</label>
+					<div style="font-size: 18px;"
+						class="formControls col-xs-8 col-sm-7"
+						th:text="${assetManagementContract.capitalOfManagementPlan}+'元'"></div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-4">资管计划本金大写(元)：</label>
+					<div style="font-size: 18px;"
+						class="formControls col-xs-8 col-sm-7"
+						th:text="${assetManagementContract.capitalOfManagementPlanUpper}+'元'"></div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-4">资管计划预期收益率：</label>
+					<div style="font-size: 18px;"
+						class="formControls col-xs-8 col-sm-7"
+						th:text="${assetManagementContract.expectedReturnRateOfManagePlan}+'%'"></div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-4">委托人：</label>
+					<div style="font-size: 18px;"
+						class="formControls col-xs-8 col-sm-7"
+						th:text="${assetManagementContract.client}"></div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-4">资产管理人：</label>
+					<div style="font-size: 18px;"
+						class="formControls col-xs-8 col-sm-7"
+						th:text="${assetManagementContract.assetManager}"></div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-4">受益人：</label>
+					<div style="font-size: 18px;"
+						class="formControls col-xs-8 col-sm-7"
+						th:text="${assetManagementContract.beneficiary}"></div>
+				</div>
+				<br /> <br />
+			</div>
+			<div class="row cl">
+				<div class="form-label col-sm-4">
+					<a th:href="'/assetRegister/assetVerifySuccess/?assetId='+${asset.id}+'&email='+${foregroundUser.email}"><input
+						class="btn btn-primary radius" type="button"
+						value="&nbsp;&nbsp;通过&nbsp;&nbsp;"></a>
+				</div>
+				<div class="form-label col-sm-8">
+					<a th:href="'/assetRegister/assetVerifyFail?assetId='+${asset.id}+'&email='+${foregroundUser.email}"> <input
+						style="float: left;" class="btn btn-danger radius" type="button"
+						value="&nbsp;&nbsp;拒绝&nbsp;&nbsp;">
+					</a>
+				</div>
+			</div>
+		</form>
+	</article>
+
+	<!--_footer 作为公共模版分离出去-->
+	<script type="text/javascript" src="/lib/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript" src="/lib/layer/2.4/layer.js"></script>
+	<script type="text/javascript" src="/static/h-ui/js/H-ui.min.js"></script>
+	<script type="text/javascript"
+		src="/static/h-ui.admin/js/H-ui.admin.js"></script>
+	<!--/_footer /作为公共模版分离出去-->
+
+	<!--请在下方写此页面业务相关的脚本-->
+	<script type="text/javascript"
+		src="/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+	<script type="text/javascript"
+		src="/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+	<script type="text/javascript"
+		src="/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+	<script type="text/javascript"
+		src="/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+	<script type="text/javascript"
+		src="/lib/webuploader/0.1.5/webuploader.min.js"></script>
+	<script type="text/javascript"
+		src="/lib/ueditor/1.4.3/ueditor.config.js"></script>
+	<script type="text/javascript"
+		src="/lib/ueditor/1.4.3/ueditor.all.min.js">
+		
+	</script>
+	<script type="text/javascript"
+		src="/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$('.skin-minimal input').iCheck({
+				checkboxClass : 'icheckbox-blue',
+				radioClass : 'iradio-blue',
+				increaseArea : '20%'
+			});
+
+		});
+	</script>
+	<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

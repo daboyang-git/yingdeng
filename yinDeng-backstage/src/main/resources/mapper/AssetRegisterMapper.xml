@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper
+	namespace="com.springcloud.backstage.dao.AssetRegisterMapper">
+	<select id="queryByPageAndCondition"
+		parameterType="AssetRegisterCondition"
+		resultType="AssetJoinForegroundUserJoinEnterpriseCertif">
+		select s.assetId,
+		s.assetCode,
+		s.assetTempCode,
+		s.assetAbbreviation,
+		s.transfer,
+		s.assetType,
+		s.timeOfSubmissionOfRegistration,
+		s.userid,
+		s.loginName,
+		e.creditCode,
+		e.address,
+		e.shortName
+		from (select a.id assetId,
+		a.assetCode,
+		a.assetTempCode,
+		a.assetAbbreviation,
+		a.transfer,
+		a.assetType,
+		a.timeOfSubmissionOfRegistration,
+		f.id userid,
+		f.loginName
+		from asset a
+		join foregrounduser f
+		on a.userid = f.id
+		<where>  
+		<if test="assetCode != null and assetCode != ''">
+		and a.assetCode = #{assetCode}
+		</if>
+		<if test="assetTempCode != null and assetTempCode != ''">
+		and a.assetTempCode = #{assetTempCode}
+		</if>
+		<if test="assetAbbreviation != null and assetAbbreviation != ''">
+		and a.assetAbbreviation = #{assetAbbreviation}
+		</if>
+		<if test="minTime != null">
+		and a.timeOfSubmissionOfRegistration >= #{minTime}
+		</if>
+		<if test="maxTime != null">
+		and a.timeOfSubmissionOfRegistration &lt;= #{maxTime}
+		</if>
+		<if test="loginName != null and loginName != ''">
+		and f.loginname = #{loginName}
+		</if>
+		 and a.state = 3  
+		</where>
+		) s
+		join enterprisecertif e
+		on s.userid = e.userid
+		<where>
+		<if test="shortName != null and shortName != ''"> 
+		and e.shortName = #{shortName}
+		</if>
+		</where>
+		order by s.timeOfSubmissionOfRegistration asc
+
+	</select>
+	
+	<select id="queryAssetById" resultType="Asset">
+	select * from asset where id = #{assetId}
+	</select>
+	
+	<select id="queryForegroundUserById" resultType="ForegroundUser">
+	select * from ForegroundUser where id = #{userId}
+	</select>
+	
+	<select id="queryEnterpriseCertifByUserId" resultType="EnterpriseCertif">
+	select * from EnterpriseCertif where id = #{userId}
+	</select>
+	
+	<select id="queryBorrowerById" resultType="Borrower">
+	select * from Borrower where id = #{borrowId}
+	</select>
+	
+	<select id="queryLoanIssuingAgencyById" resultType="LoanIssuingAgency">
+	select * from LoanIssuingAgency where id = #{lenderId}
+	</select>
+	
+	<select id="queryTrustContractById" resultType="TrustContract">
+	select * from TrustContract where id = #{trustContractId}
+	</select>
+	
+	<select id="queryAssetManagementContractById" resultType="AssetManagementContract">
+	select * from AssetManagementContract where id = #{assetManagementContractId}
+	</select>
+	
+	<update id="assetVerifySuccess">
+	update asset set state = 2 where id = #{assetId}
+	</update>
+	
+	<select id="selectByAssetId" resultType="CheckResult">
+	select * from checkResult where assetId = #{assetId}
+	</select>
+	
+	<insert id="insertByAssetId">
+	insert into checkResult values(seq_checkResult.nextval,sysdate,null,0,1,2,null,#{assetId})
+	</insert>
+	
+	<update id="updateByAssetId">
+	update checkResult set timeModified = sysdate , version = version + 1 , result = 2 where assetId = #{assetId}
+	</update>
+	
+	<update id="assetVerifyFail">
+	update asset set state = 1 where id = #{assetId}
+	</update>
+	
+	<insert id="failToInsertByAssetId">
+	insert into checkResult values(seq_checkResult.nextval,sysdate,null,0,1,1,#{remark},#{assetId})
+	</insert>
+	
+	<update id="failToUpdateByAssetId">
+	update checkResult set timeModified = sysdate , version = version + 1 , result = 1 , remark = #{remark} where assetId = #{assetId}
+	</update>
+</mapper>
